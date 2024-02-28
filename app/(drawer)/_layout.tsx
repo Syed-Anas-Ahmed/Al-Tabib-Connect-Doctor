@@ -1,43 +1,30 @@
-import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
-import { Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../styles';
+import { CustomContent } from '~/components/home/CustomContent';
 
 const DrawerLayout = () => (
-  <Drawer>
-    <Drawer.Screen
-      name="index"
-      options={{
-        headerTitle: 'Home',
-        drawerLabel: 'Home',
-        drawerIcon: ({ size, color }) => <Ionicons name="home-outline" size={size} color={color} />,
-      }}
-    />
-    <Drawer.Screen
-      name="(tabs)"
-      options={{
-        headerTitle: 'Tabs',
-        drawerLabel: 'Tabs',
-        drawerIcon: ({ size, color }) => (
-          <MaterialIcons name="border-bottom" size={size} color={color} />
-        ),
-        headerRight: () => (
-          <Link href="/modal" asChild>
-            <Pressable>
-              {({ pressed }) => (
-                <FontAwesome
-                  name="info-circle"
-                  size={25}
-                  color="gray"
-                  style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-                />
-              )}
-            </Pressable>
-          </Link>
-        ),
-      }}
-    />
-  </Drawer>
+  <>
+    <Drawer
+      drawerContent={CustomContent}
+      screenOptions={{
+        headerShown: false,
+        drawerContentStyle: { backgroundColor: 'red' },
+        drawerActiveBackgroundColor: colors.primary,
+        drawerActiveTintColor: 'white',
+      }}>
+      <Drawer.Screen
+        name="(tabs)"
+        options={{
+          headerTintColor: colors.primary,
+          headerTitle: 'Home',
+          drawerLabel: ' Home',
+          drawerIcon: ({ size, color }) => <MaterialIcons name="home" size={size} color={color} />,
+        }}
+      />
+    </Drawer>
+  </>
 );
 
 const styles = StyleSheet.create({
