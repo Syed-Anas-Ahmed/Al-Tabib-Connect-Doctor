@@ -77,13 +77,15 @@ const LoginCard = () => {
 
   const uri = url;
 
-  const loginUrl = `${uri}login?username=${num}&password=${pass}&UUID=${currentTimeStamp}&type=2`;
+  const loginUrl = `${uri}login?username=${num}&password=${pass}&UUID=${currentTimeStamp}&type=3`;
 
   const fetchLoginData = () => {
     setLoading(true);
     axios
       .get(loginUrl)
       .then((response) => {
+        //console log token
+        console.log('RESPONSE: ', JSON.stringify(response, null, 2));
         if (response.status === 200) {
           const USER = {
             name: num,

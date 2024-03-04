@@ -1,49 +1,57 @@
 import { FlatList, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonText, Card, Text, XStack, YStack } from 'tamagui';
+import { Button, ButtonText, Card, Text, XStack } from 'tamagui';
 import { useDispatch } from 'react-redux';
-import { addAppointment } from '~/context/actions/appointmentActions';
 import axios from 'axios';
-import { colors } from '~/app/styles';
+import { colors, styles } from '~/app/styles';
 import * as Progress from 'react-native-progress';
 import { url } from '~/env';
 import TitleBar from '~/components/TitleBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import * as AsyncStorage from 'expo-secure-store';
+import { SvgUri } from 'react-native-svg';
+import Spinner from '~/components/Spinner';
 
 const Page = () => {
+  const checkToken = async () => {
+    const token = AsyncStorage.getItem('token');
+    if (token) {
+      setToken(token);
+    }
+  };
   const dispatch = useDispatch();
-
   const [clinicData, setclinicData] = useState([]);
-
+  const [token, setToken] = useState('');
   const [loading, setLoading] = useState(true);
-
   //USE YOUR OWN URL!!
   const uri = url;
-
   useEffect(() => {
     // Axios GET request to fetch doctors data
     axios
-      .get(`${uri}getAllBasicData?token=1658475019378f0b7fca1-8dc1-4dab-ab9e-fee497f6e918`)
+      .get(
+        `http://192.168.10.6:8083/altabibconnect/getClinic?token=1658412004234568fec39-c43a-47d0-bb03-88cf68ae656d`
+      )
       .then((res) => {
+        console.log('Response:', JSON.stringify(res.data.data.doctorClinicDALS, null, 2));
         //setDoctorsData(res.data.data.doctors);
-        setclinicData(res.data.data.doctors[0].doctorClinicDALS);
+        setclinicData(res.data.data.doctorClinicDALS);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
   }, []);
-
   console.log('Docs Data: ', JSON.stringify(clinicData, null, 2));
-
   const handleGetAppointment = () => {
     //dispatch(addAppointment(doc, clinic));
-    router.push("getAppointment");
+    router.push('getAppointment');
   };
-
   return (
-    <SafeAreaView style={{gap:10,padding:10,backgroundColor:colors.linkBlue, flex:1}}>
+
+    
+
+    <SafeAreaView style={styles.safeArea}>
       <TitleBar />
       <Card padding={10} gap={10} backgroundColor={colors.lightGray} alignItems="center">
         <Text fontFamily={'ArialB'} color={colors.linkBlue} fontSize={18}>
@@ -66,25 +74,7 @@ const Page = () => {
         backgroundColor={colors.lightGray}
         animation="bouncy"
         gap={10}>
-        {loading ? (
-          <View
-            style={{
-              alignSelf: 'center',
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 20,
-            }}>
-            <Text color={colors.primary} fontFamily={'ArialB'}>
-              Loading your Clinics
-            </Text>
-            <Progress.CircleSnail
-              thickness={7}
-              size={100}
-              color={['red', colors.primary, colors.yellow]}
-            />
-          </View>
-        ) : (
+        {loading ? <Spinner title="Loading your Clinics"/> : (
           <>
             <Text fontFamily={'ArialB'} color={colors.linkBlue} alignSelf="center" fontSize={24}>
               Clinics List
@@ -94,7 +84,7 @@ const Page = () => {
               horizontal={false}
               decelerationRate="normal"
               data={clinicData}
-              keyExtractor={(item: any) => item.id.toString()}
+              //keyExtractor={(item: any) => item.id.toString()}
               renderItem={({ item }) => (
                 <View style={{ paddingBottom: 10, gap: 5 }}>
                   {/* Doctor's information */}
@@ -139,7 +129,7 @@ const Page = () => {
                           Charges:
                         </Text>
                         <Text fontFamily={'ArialB'} fontSize={'$6'} color={colors.linkBlue}>
-                          ${item.charges}
+                          {item.charges}
                         </Text>
                       </XStack>
                     </View>
@@ -153,7 +143,6 @@ const Page = () => {
                       <ButtonText fontFamily={'ArialB'}>View Appoinments</ButtonText>
                     </Button>
                   </XStack>
-                  {/* Pagination dots */}
                 </View>
               )}
             />

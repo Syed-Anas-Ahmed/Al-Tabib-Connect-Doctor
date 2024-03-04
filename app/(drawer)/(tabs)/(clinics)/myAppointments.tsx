@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const myAppointments = () => {
+const Page = () => {
   return (
     <View>
       <Text>myAppointments</Text>
@@ -9,6 +9,6 @@ const myAppointments = () => {
   )
 }
 
-export default myAppointments
+export default Page
 
 const styles = StyleSheet.create({})

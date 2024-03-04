@@ -24,9 +24,9 @@ export const colors = {
 
 export const styles = StyleSheet.create({
   safeArea: {
+    backgroundColor:colors.primary,
     gap: 10,
     padding: 10,
-    backgroundColor: colors.linkBlue,
     flex: 1,
   },
   imgStyle: {
@@ -47,4 +47,25 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 10,
   },
+  input:{
+    fontFamily: 'ArialB',
+    flex: 1,
+    borderBottomColor: colors.yellow,
+    padding: 0,
+    borderBottomWidth: 2,
+  },
+  primBtn:{
+borderRadius:5,
+    backgroundColor: colors.primary,
+    padding: 10,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  secBtn:{
+borderRadius:5,
+    backgroundColor: colors.yellow,
+    padding: 10,
+    alignItems:"center",
+    justifyContent:"center"
+  }
 });

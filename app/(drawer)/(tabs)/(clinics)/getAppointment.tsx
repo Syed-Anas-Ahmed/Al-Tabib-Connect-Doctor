@@ -96,7 +96,7 @@ export default function Page() {
               </Text>
             </XStack>
             <XStack gap={10}>
-              <Button flex={1} backgroundColor={colors.yellow}>
+              <Button onPress={()=>router.push('/patientHistory')} flex={1} backgroundColor={colors.yellow}>
                 <ButtonText fontFamily={'ArialB'} fontSize={14} color={colors.white}>
                   Patient History
                 </ButtonText>
@@ -109,7 +109,7 @@ export default function Page() {
             </XStack>
           </Card>
         ) : (
-          <Text style={styles.contentText}>Successful Data</Text>
+          <Text>Successful Data</Text>
         )}
       </Card>
     </SafeAreaView>

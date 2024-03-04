@@ -1,6 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
-import { StyleSheet } from 'react-native';
 import { colors } from '../styles';
 import { CustomContent } from '~/components/home/CustomContent';
 
@@ -27,10 +26,10 @@ const DrawerLayout = () => (
   </>
 );
 
-const styles = StyleSheet.create({
-  headerRight: {
-    marginRight: 15,
-  },
-});
+// const styles = StyleSheet.create({
+//   headerRight: {
+//     marginRight: 15,
+//   },
+// });
 
 export default DrawerLayout;

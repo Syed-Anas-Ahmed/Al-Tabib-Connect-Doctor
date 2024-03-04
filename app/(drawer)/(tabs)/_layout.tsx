@@ -31,14 +31,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="(message)"
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Messages',
-          tabBarIcon: ({color}) => <AntDesign name="message1" size={24} color={color} />
-        }}
-      />
-      <Tabs.Screen
         name="(summary)"
         options={{
           headerShown: false,
